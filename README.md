@@ -9,6 +9,6 @@
 - There's no splitting, doubling down, or insurance (yet)
 
 <p align="center">
-![blackjack-screen](https://user-images.githubusercontent.com/38390009/107533088-6c75c280-6b73-11eb-8bcf-3fd1cee0de4d.png)
-</p>
+<img src="![blackjack-screen](https://user-images.githubusercontent.com/38390009/107533088-6c75c280-6b73-11eb-8bcf-3fd1cee0de4d.png)">
+<p/>
 
