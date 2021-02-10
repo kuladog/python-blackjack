@@ -8,5 +8,5 @@
 - Bank eats the float if less than one chip
 - There's no splitting, doubling down, or insurance (yet)
 
-- ![blackjack-screen](https://user-images.githubusercontent.com/38390009/107533088-6c75c280-6b73-11eb-8bcf-3fd1cee0de4d.png)
+- Screenshot ^ ![blackjack-screen](https://user-images.githubusercontent.com/38390009/107533088-6c75c280-6b73-11eb-8bcf-3fd1cee0de4d.png)
 
