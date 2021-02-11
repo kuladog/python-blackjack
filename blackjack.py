@@ -167,7 +167,7 @@ def wager():
 
 
 def options():
-    choose = input("\n(H)it, (S)tand, (D)ouble").lower()
+    choose = input("\n(H)it, (S)tand, (D)ouble ").lower()
     if choose == 'h':
         player.get_card()
         check_win()
