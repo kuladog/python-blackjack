@@ -145,13 +145,17 @@ def display():
     show_player()
 
 
-def wager():
-    bank.eat_float()
+def balance():
     print("\nYou have " + str(bank.chips) + " chips!")
     if bank.chips <= 0:
         time.sleep(0.8)
         print("\nSorry, Game Over")
         exit()
+
+
+def wager():
+    bank.eat_float()
+    balance()
     while True:
         try:
             bank.bet = int(input("\nPlease place your bet: "))
