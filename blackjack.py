@@ -166,8 +166,8 @@ def wager():
     return bank.bet
 
 
-def hit_stand():
-    choose = input("\n (H)it or (S)tand ").lower()
+def options():
+    choose = input("\n(H)it, (S)tand, (D)ouble").lower()
     if choose == 'h':
         player.get_card()
         check_win()
@@ -181,6 +181,13 @@ def hit_stand():
                 continue
             else:
                 check_win()
+    elif choose == 'd':
+        if bank.chips >= bank.bet * 2:
+            bank.bet *= 2
+            player.get_card()
+            check_win()
+        else:
+            print("\nSorry, not enough chips to double")
 
 
 def new_hand():
@@ -230,7 +237,7 @@ def check_win():
             print("\nDEALER PUSHES " + str(player.total) + ", DRAW!")
             break
         else:
-            hit_stand()
+            options()
     new_hand()
 
 
