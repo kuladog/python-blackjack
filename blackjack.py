@@ -3,7 +3,7 @@
 """
 File: blackjack.py
 Author: Jay Hartt
-Github: kuladog
+Github: /kuladog
 Date: 2021-02-16
 Python Version: 3.9
 """
@@ -71,8 +71,8 @@ class Hand:
             if card.rank in "JQK":
                 self.total += 10
             elif card.rank == "A":
-                self.total += 11
                 ace.append('a')
+                self.total += 11
             else:
                 self.total += int(card.rank)
         for a in ace:
@@ -202,22 +202,6 @@ def options():
             time.sleep(0.5)
 
 
-def new_hand():
-    dealer.hand = []
-    player.hand = []
-    while True:
-        again = input("\nPlay another hand? (Y/n) ").upper()
-        clear()
-        if again == "Y":
-            player.stand = False
-            wager()
-        elif again == "N":
-            print("Thanks for playing!")
-            exit()
-        else:
-            continue
-
-
 def check_win():
     display()
     while True:
@@ -251,6 +235,22 @@ def check_win():
         else:
             options()
     new_hand()
+
+
+def new_hand():
+    dealer.hand = []
+    player.hand = []
+    while True:
+        again = input("\nPlay another hand? (Y/n) ").upper()
+        clear()
+        if again == "Y":
+            player.stand = False
+            wager()
+        elif again == "N":
+            print("Thanks for playing!")
+            exit()
+        else:
+            continue
 
 
 def greeter():
