@@ -30,13 +30,12 @@ class Card:
         return "{} of {}".format(self.rank, self.suit)
 
     def dealer_card(self):
-        if self.rank.isnumeric():
-            return int(self.rank)
+        if self.rank in "JQK":
+            return 10
+        elif self.rank == "A":
+            return 11
         else:
-            if self.rank == "A":
-                return 11
-            else:
-                return 10
+            return int(self.rank)
 
 
 class Deck:
@@ -72,8 +71,8 @@ class Hand:
             if card.rank in "JQK":
                 self.total += 10
             elif card.rank == "A":
-                ace.append('a')
                 self.total += 11
+                ace.append('a')
             else:
                 self.total += int(card.rank)
         for a in ace:
@@ -162,7 +161,7 @@ def wager():
             bank.bet = int(input("\nPlease place your bet: "))
             if bank.bet <= 0:
                 clear()
-                print("\n> Must be positive integer")
+                print("\n> Must be a positive integer.")
                 continue
             elif bank.bet > bank.chips:
                 clear()
@@ -170,7 +169,7 @@ def wager():
                 continue
         except ValueError:
             clear()
-            print("\n> Must be positive integer")
+            print("\n> That's not an integer!")
             continue
         if bank.chips >= bank.bet:
             set_table()
@@ -179,11 +178,11 @@ def wager():
 
 
 def options():
-    choose = input("\n(H)it, (S)tand, (D)ouble ").lower()
-    if choose == 'h':
+    choose = input("\n(H)it, (S)tand, (D)ouble ").upper()
+    if choose == 'H':
         player.get_card()
         check_win()
-    elif choose == 's':
+    elif choose == 'S':
         player.stand = True
         show_dealer()
         while True:
@@ -193,7 +192,7 @@ def options():
                 continue
             else:
                 check_win()
-    elif choose == 'd':
+    elif choose == 'D':
         if bank.chips >= bank.bet * 2:
             bank.bet *= 2
             player.get_card()
@@ -207,12 +206,12 @@ def new_hand():
     dealer.hand = []
     player.hand = []
     while True:
-        again = input("\nPlay another hand? (Y/n) ").lower()
+        again = input("\nPlay another hand? (Y/n) ").upper()
         clear()
-        if again == "y":
+        if again == "Y":
             player.stand = False
             wager()
-        elif again == "n":
+        elif again == "N":
             print("Thanks for playing!")
             exit()
         else:
@@ -225,21 +224,21 @@ def check_win():
         if player.total == 21:
             player.stand = True
             display()
-            print("\n BLACKJACK! YOU WIN!")
+            print("\nBLACKJACK! YOU WIN!")
             bank.blackjack()
             break
         elif player.total > 21:
             player.stand = True
             display()
-            print("\n BUSTED! YOU LOSE.")
+            print("\nBUSTED! YOU LOSE.")
             bank.lose()
             break
         elif dealer.total > 21:
-            print("\n DEALER BUSTS! YOU WIN!")
+            print("\nDEALER BUSTS! YOU WIN!")
             bank.win()
             break
         elif 17 <= dealer.total > player.total:
-            print("\n DEALER HITS " + str(dealer.total) + ", YOU LOSE.")
+            print("\nDEALER HITS " + str(dealer.total) + ", YOU LOSE.")
             bank.lose()
             break
         elif player.total > dealer.total >= 17:
@@ -261,14 +260,15 @@ def greeter():
             bank.chips = int(input("\nHow many chips would you like to buy?\n"))
             if bank.chips <= 0:
                 clear()
-                print("\n> Must be positive integer")
+                print("\n> Must be a positive integer.")
                 continue
             clear()
             wager()
         except ValueError:
             clear()
-            print("\n> Must be positive integer")
+            print("\n> That's not an integer!")
             continue
+
 
 
 if __name__ == "__main__":
