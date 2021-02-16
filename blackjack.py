@@ -3,7 +3,8 @@
 """
 File: blackjack.py
 Author: Jay Hartt
-Date: 2021-02-09
+Github: kuladog
+Date: 2021-02-16
 Python Version: 3.9
 """
 
@@ -66,18 +67,18 @@ class Hand:
             print(" "*4 + str(card))
 
     def get_total(self):
-        ace = False
+        ace = []
         for card in self.hand:
-            if card.rank.isnumeric():
-                self.total += int(card.rank)
+            if card.rank in "JQK":
+                self.total += 10
+            elif card.rank == "A":
+                ace.append('a')
+                self.total += 11
             else:
-                if card.rank == "A":
-                    ace = True
-                    self.total += 11
-                else:
-                    self.total += 10
-        if ace and self.total > 21:
-            self.total -= 10
+                self.total += int(card.rank)
+        for a in ace:
+            if self.total > 21:
+                self.total -= 10
 
     def score(self):
         self.get_total()
@@ -127,7 +128,7 @@ def show_dealer():
         dealer.show_hand()
         print("\n Dealer Shows: " + str(dealer.score()))
     else:
-        print("     - Hidden -\n" + "    " + str(dealer.hand[1]))
+        print(" "*5 + "- Hidden -\n" + " "*4 + str(dealer.hand[1]))
         print("\n Dealer Shows: " + str(dealer.hand[1].dealer_card()))
 
 
@@ -199,6 +200,7 @@ def options():
             check_win()
         else:
             print("\nSorry, not enough chips to double")
+            time.sleep(0.5)
 
 
 def new_hand():
@@ -223,21 +225,21 @@ def check_win():
         if player.total == 21:
             player.stand = True
             display()
-            print("\nBLACKJACK! YOU WIN!")
+            print("\n BLACKJACK! YOU WIN!")
             bank.blackjack()
             break
         elif player.total > 21:
             player.stand = True
             display()
-            print("\nBUSTED! YOU LOSE.")
+            print("\n BUSTED! YOU LOSE.")
             bank.lose()
             break
         elif dealer.total > 21:
-            print("\nDEALER BUSTS! YOU WIN!")
+            print("\n DEALER BUSTS! YOU WIN!")
             bank.win()
             break
         elif 17 <= dealer.total > player.total:
-            print("\nDEALER HITS " + str(dealer.total) + ", YOU LOSE.")
+            print("\n DEALER HITS " + str(dealer.total) + ", YOU LOSE.")
             bank.lose()
             break
         elif player.total > dealer.total >= 17:
