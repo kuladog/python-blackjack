@@ -114,10 +114,9 @@ bank = Bank()
 def set_table():
     deck.new_deck()
     if dealer.hand == [] and player.hand == []:
-        player.get_card()
-        dealer.get_card()
-        player.get_card()
-        dealer.get_card()
+        for card in range(2):
+            dealer.get_card()
+            player.get_card()
 
 
 def show_dealer():
@@ -182,7 +181,15 @@ def options():
     if choose == 'H':
         player.get_card()
         check_win()
-    elif choose == 'S':
+    else:
+        if choose == 'D':
+            if bank.chips >= bank.bet * 2:
+                bank.bet *= 2
+                player.get_card()
+            else:
+                print("\nSorry, not enough chips to double")
+                time.sleep(0.5)
+                options()
         player.stand = True
         show_dealer()
         while True:
@@ -192,14 +199,6 @@ def options():
                 continue
             else:
                 check_win()
-    elif choose == 'D':
-        if bank.chips >= bank.bet * 2:
-            bank.bet *= 2
-            player.get_card()
-            check_win()
-        else:
-            print("\nSorry, not enough chips to double")
-            time.sleep(0.5)
 
 
 def check_win():
