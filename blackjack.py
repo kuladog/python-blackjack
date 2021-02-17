@@ -22,6 +22,7 @@ clear()
 
 
 class Card:
+    
     def __init__(self, suit, rank):
         self.suit = suit
         self.rank = rank
@@ -39,6 +40,7 @@ class Card:
 
 
 class Deck:
+
     def __init__(self):
         self.cards = []
 
@@ -53,6 +55,7 @@ class Deck:
 
 
 class Hand:
+
     def __init__(self):
         self.stand = False
         self.hand = []
@@ -261,7 +264,6 @@ def greeter():
             clear()
             print("\n> That's not an integer!")
             continue
-
 
 
 if __name__ == "__main__":
