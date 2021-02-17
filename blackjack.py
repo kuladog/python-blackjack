@@ -22,7 +22,7 @@ clear()
 
 
 class Card:
-    
+
     def __init__(self, suit, rank):
         self.suit = suit
         self.rank = rank
@@ -268,7 +268,7 @@ def greeter():
 
 if __name__ == "__main__":
     deck = Deck()
+    bank = Bank()
     dealer = Hand()
     player = Hand()
-    bank = Bank()
     greeter()
