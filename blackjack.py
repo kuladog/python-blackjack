@@ -105,12 +105,6 @@ class Bank:
             return self.chips
 
 
-dealer = Hand()
-player = Hand()
-deck = Deck()
-bank = Bank()
-
-
 def set_table():
     deck.new_deck()
     if dealer.hand == [] and player.hand == []:
@@ -271,4 +265,8 @@ def greeter():
 
 
 if __name__ == "__main__":
+    deck = Deck()
+    dealer = Hand()
+    player = Hand()
+    bank = Bank()
     greeter()
