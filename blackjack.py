@@ -1,13 +1,5 @@
 #!/usr/bin/env python
 
-"""
-File: blackjack.py
-Author: Jay Hartt
-Github: /kuladog
-Date: 2021-02-16
-Python Version: 3.9
-"""
-
 import random
 import time
 import subprocess
