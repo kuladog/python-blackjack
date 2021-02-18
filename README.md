@@ -1,4 +1,4 @@
-###Python Blackjack!
+### Python Blackjack!
 
 - Player can buy any amount of chips, game over when 0 chips
 - Player has options to hit, stand, or double down
