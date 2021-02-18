@@ -61,16 +61,16 @@ class Hand:
             print(" "*4 + str(card))
 
     def get_total(self):
-        ace = []
+        ace = 0
         for card in self.hand:
             if card.rank in "JQK":
                 self.total += 10
             elif card.rank == "A":
-                ace.append('a')
+                ace += 1
                 self.total += 11
             else:
                 self.total += int(card.rank)
-        for a in ace:
+        for a in range(ace):
             if self.total > 21:
                 self.total -= 10
 
