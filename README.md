@@ -7,5 +7,5 @@
 - Ace follows soft rules, values 11 and 1, auto blackjack
 - Blackjack pays out 3:2 or * 1.5 of bet
 - Bank eats the float if less than one chip
-- ![bj-screen](https://user-images.githubusercontent.com/38390009/107591234-0747be80-6bbf-11eb-9304-10dc09bdc7e6.png)
+- ![blackjack](https://user-images.githubusercontent.com/38390009/108306949-1819a680-7162-11eb-8a74-ab0707428026.png)
 
