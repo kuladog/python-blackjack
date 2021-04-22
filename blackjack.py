@@ -111,7 +111,7 @@ def set_table():
 def show_dealer():
     dealer.total = 0
     print("\n ** Dealer's Hand **")
-    if player.stand:
+    if player.stand == True:
         dealer.show_hand()
         print("\n Dealer Shows: " + str(dealer.score()))
     else:
@@ -141,6 +141,18 @@ def balance():
         exit()
 
 
+def stand():
+    player.stand = True
+    display()
+    while True:
+        if dealer.total < 17 and player.total <= 21:
+            dealer.get_card()
+            display()
+            continue
+        else:
+            check_win()
+
+
 def wager():
     bank.eat_float()
     balance()
@@ -149,7 +161,7 @@ def wager():
             bank.bet = int(input("\nPlease place your bet: "))
             if bank.bet <= 0:
                 clear()
-                print("\n> Must be a positive integer.")
+                print("\n Must be a positive integer.")
                 continue
             elif bank.bet > bank.chips:
                 clear()
@@ -157,7 +169,7 @@ def wager():
                 continue
         except ValueError:
             clear()
-            print("\n> That's not an integer!")
+            print("\n That's not an integer!")
             continue
         if bank.chips >= bank.bet:
             set_table()
@@ -165,35 +177,34 @@ def wager():
     return bank.bet
 
 
+
 def options():
-    choose = input("\n(H)it, (S)tand, (D)ouble ").upper()
-    if choose == 'H':
-        player.get_card()
-        check_win()
-    else:
-        if choose == 'D':
-            if bank.chips >= bank.bet * 2:
-                bank.bet *= 2
-                player.get_card()
-            else:
-                print("\nSorry, not enough chips to double")
-                time.sleep(0.5)
-                options()
-        player.stand = True
-        show_dealer()
-        while True:
-            if dealer.total < 17:
-                dealer.get_card()
-                display()
-                continue
-            else:
-                check_win()
+    while True:
+      choose = input("\n(H)it, (S)tand, (D)ouble ").lower()
+      if choose == 'h':
+          player.get_card()
+          check_win()
+      elif choose == 's':
+          stand()
+      elif choose == 'd':
+          if bank.chips >= bank.bet * 2:
+              bank.bet *= 2
+              player.get_card()
+              stand()
+          else:
+              print("\n Sorry, not enough chips.")
+              time.sleep(1)
+              continue
+      else:
+          print ("\n Invalid entry.")
+          time.sleep(1)
+          continue
 
 
 def check_win():
     display()
     while True:
-        if player.total == 21:
+        if dealer.total < player.total == 21:
             player.stand = True
             display()
             print("\nBLACKJACK! YOU WIN!")
@@ -248,13 +259,13 @@ def greeter():
             bank.chips = int(input("\nHow many chips would you like to buy?\n"))
             if bank.chips <= 0:
                 clear()
-                print("\n> Must be a positive integer.")
+                print("\n Must be a positive integer.")
                 continue
             clear()
             wager()
         except ValueError:
             clear()
-            print("\n> That's not an integer!")
+            print("\n That's not an integer!")
             continue
 
 
