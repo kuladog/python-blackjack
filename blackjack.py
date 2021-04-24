@@ -141,6 +141,18 @@ def balance():
         exit()
 
 
+def stand():
+    player.stand = True
+    display()
+    while True:
+        if dealer.total < 17 and player.total <= 21:
+            dealer.get_card()
+            display()
+            continue
+        else:
+            check_win()
+            
+            
 def wager():
     bank.eat_float()
     balance()
@@ -166,28 +178,26 @@ def wager():
 
 
 def options():
-    choose = input("\n(H)it, (S)tand, (D)ouble ").upper()
-    if choose == 'H':
-        player.get_card()
-        check_win()
-    else:
-        if choose == 'D':
-            if bank.chips >= bank.bet * 2:
-                bank.bet *= 2
-                player.get_card()
-            else:
-                print("\nSorry, not enough chips to double")
-                time.sleep(0.5)
-                options()
-        player.stand = True
-        display()
-        while True:
-            if dealer.total < 17:
-                dealer.get_card()
-                display()
-                continue
-            else:
-                check_win()
+    while True:
+      choose = input("\n(H)it, (S)tand, (D)ouble ").lower()
+      if choose == 'h':
+          player.get_card()
+          check_win()
+      elif choose == 's':
+          stand()
+      elif choose == 'd':
+          if bank.chips >= bank.bet * 2:
+              bank.bet *= 2
+              player.get_card()
+              stand()
+          else:
+              print("\n Sorry, not enough chips.")
+              time.sleep(1)
+              continue
+      else:
+          print ("\n Invalid entry.")
+          time.sleep(1)
+          continue
 
 
 def check_win():
