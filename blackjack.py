@@ -38,7 +38,8 @@ class Deck:
 
     def new_deck(self):
         suits = ["Spades", "Clubs", "Hearts", "Diamonds"]
-        ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] * 4
+        ranks = ["10", "J", "Q", "K", "A"] * 4
+#        ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] * 4
         if len(self.cards) < 25:
             for suit in suits:
                 for rank in ranks:
@@ -203,7 +204,7 @@ def options():
 def check_win():
     display()
     while True:
-        if player.total == 21:
+        if player.total == 21 != dealer.total:
             player.stand = True
             display()
             print("\nBLACKJACK! YOU WIN!")
@@ -246,6 +247,7 @@ def new_hand():
             wager()
         elif again == "N":
             print("Thanks for playing!")
+            time.sleep(0.8)
             exit()
         else:
             continue
