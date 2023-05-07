@@ -6,11 +6,11 @@ import subprocess
 import os
 
 
-def clear():
+def console():
     subprocess.call('clear' if os.name == 'posix' else 'cls')
 
 
-clear()
+console()
 
 
 class Card:
@@ -38,9 +38,9 @@ class Deck:
 
     def new_deck(self):
         suits = ["Spades", "Clubs", "Hearts", "Diamonds"]
-        ranks = ["10", "J", "Q", "K", "A"] * 4
-#        ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] * 4
+        ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] * 4
         if len(self.cards) < 25:
+            self.cards.clear()
             for suit in suits:
                 for rank in ranks:
                     self.cards.append(Card(suit, rank))
@@ -128,7 +128,7 @@ def show_player():
 
 
 def display():
-    clear()
+    console()
     print("\n You bet " + str(bank.bet) + " chips")
     show_dealer()
     show_player()
@@ -152,8 +152,8 @@ def stand():
             continue
         else:
             check_win()
-            
-            
+
+
 def wager():
     bank.eat_float()
     balance()
@@ -161,15 +161,15 @@ def wager():
         try:
             bank.bet = int(input("\nPlease place your bet: "))
             if bank.bet <= 0:
-                clear()
+                console()
                 print("\n> Must be a positive integer.")
                 continue
             elif bank.bet > bank.chips:
-                clear()
+                console()
                 print("\nSorry, you only have " + str(bank.chips) + " chips.")
                 continue
         except ValueError:
-            clear()
+            console()
             print("\n> That's not an integer!")
             continue
         if bank.chips >= bank.bet:
@@ -241,7 +241,7 @@ def new_hand():
     player.hand = []
     while True:
         again = input("\nPlay another hand? (Y/n) ").upper()
-        clear()
+        console()
         if again == "Y":
             player.stand = False
             wager()
@@ -259,13 +259,13 @@ def greeter():
         try:
             bank.chips = int(input("\nHow many chips would you like to buy?\n"))
             if bank.chips <= 0:
-                clear()
+                console()
                 print("\n> Must be a positive integer.")
                 continue
-            clear()
+            console()
             wager()
         except ValueError:
-            clear()
+            console()
             print("\n> That's not an integer!")
             continue
 
