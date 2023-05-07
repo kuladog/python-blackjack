@@ -83,8 +83,8 @@ class Hand:
 class Bank:
 
     def __init__(self):
-        self.chips = 0
-        self.bet = 0
+        self.chips = int(0)
+        self.bet = int(0)
 
     def win(self):
         self.chips += self.bet
@@ -94,11 +94,6 @@ class Bank:
 
     def blackjack(self):
         self.chips += self.bet * 1.5
-
-    def eat_float(self):
-        if self.chips < 1:
-            self.chips = int(self.chips)
-            return self.chips
 
 
 def set_table():
@@ -155,7 +150,6 @@ def stand():
 
 
 def wager():
-    bank.eat_float()
     balance()
     while True:
         try:
