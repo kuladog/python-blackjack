@@ -50,7 +50,6 @@ class Deck:
 class Hand:
 
     def __init__(self):
-        self.stand = False
         self.hand = []
         self.total = 0
 
@@ -83,8 +82,8 @@ class Hand:
 class Bank:
 
     def __init__(self):
-        self.chips = int(0)
-        self.bet = int(0)
+        self.chips = 0
+        self.bet = 0
 
     def win(self):
         self.chips += self.bet
@@ -102,10 +101,17 @@ def set_table():
         for card in range(2):
             dealer.get_card()
             player.get_card()
+    player.stand = False
+    player.double = True
 
 
-def show_dealer():
+def display():
     dealer.total = 0
+    player.total = 0
+
+    console()
+    print("\n You bet " + str(int(bank.bet)) + " chips")
+
     print("\n ** Dealer's Hand **")
     if player.stand:
         dealer.show_hand()
@@ -114,30 +120,20 @@ def show_dealer():
         print(" "*5 + "- Hidden -\n" + " "*4 + str(dealer.hand[1]))
         print("\n Dealer Shows: " + str(dealer.hand[1].dealer_card()))
 
-
-def show_player():
-    player.total = 0
     print("\n ** Player's Hand ** ")
     player.show_hand()
     print("\n Player Has: " + str(player.score()))
 
 
-def display():
-    console()
-    print("\n You bet " + str(bank.bet) + " chips")
-    show_dealer()
-    show_player()
-
-
 def balance():
-    print("\nYou have " + str(bank.chips) + " chips!")
+    print("\nYou have " + str(int(bank.chips)) + " chips!")
     if bank.chips <= 0:
         time.sleep(0.8)
         print("\nSorry, Game Over")
         exit()
 
 
-def stand():
+def auto_deal():
     player.stand = True
     display()
     while True:
@@ -160,7 +156,7 @@ def wager():
                 continue
             elif bank.bet > bank.chips:
                 console()
-                print("\nSorry, you only have " + str(bank.chips) + " chips.")
+                print("\nSorry, you only have " + str(int(bank.chips)) + " chips.")
                 continue
         except ValueError:
             console()
@@ -174,25 +170,31 @@ def wager():
 
 def options():
     while True:
-      choose = input("\n(H)it, (S)tand, (D)ouble ").lower()
-      if choose == 'h':
-          player.get_card()
-          check_win()
-      elif choose == 's':
-          stand()
-      elif choose == 'd':
-          if bank.chips >= bank.bet * 2:
-              bank.bet *= 2
-              player.get_card()
-              stand()
-          else:
-              print("\n Sorry, not enough chips.")
-              time.sleep(1)
-              continue
-      else:
-          print ("\n Invalid entry.")
-          time.sleep(1)
-          continue
+        choose = input("\n(H)it, (S)tand, (D)ouble ").lower()
+        if choose == 'h':
+            player.double = False
+            player.get_card()
+            check_win()
+        elif choose == 's':
+            auto_deal()
+        elif choose == 'd':
+            if player.double:
+                if bank.chips >= bank.bet * 2:
+                    bank.bet *= 2
+                    player.get_card()
+                    display()
+                else:
+                    print("\nSorry, not enough chips.")
+                    time.sleep(1)
+                    continue
+            else:
+                print("\nCan't double down after 'hit'")
+                time.sleep(1)
+                continue
+        else:
+            print ("\nInvalid entry.")
+            time.sleep(1)
+            continue
 
 
 def check_win():
